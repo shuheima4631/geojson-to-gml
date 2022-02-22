@@ -76,9 +76,11 @@ function multi(name, memberName, membercb, geom, gmlId, params={}){
     if (name == 'MultiGeometry'){
       let memberType = member.type;
       member = member.coordinates;
-      multi += membercb[memberType](member, _gmlId, params);
+      //multi += membercb[memberType](member, _gmlId, params);
+      multi += membercb[memberType]( member, _gmlId, undefined);
     } else {
-      multi += membercb(member, _gmlId, params);
+      //multi += membercb(member, _gmlId, params);
+      multi += membercb(member, _gmlId, undefined);
     }
   });
   multi += `</gml:${memberName}>`;
@@ -109,7 +111,8 @@ export function point(coords, gmlId, params={}){
  * @returns {String} a string containing gml representing the input geometry
  */
 export function lineString(coords, gmlId, params={}){
-  var {srsName:srsName, srsDimension:srsDimension} = params;
+  //var {srsName:srsName,srsDimension:srsDimension} = params;
+  var {srsName:undefined,srsDimension:srsDimension} = params;
   return `<gml:LineString${attrs({srsName, 'gml:id':gmlId})}>` +
     `<gml:posList${attrs({srsDimension})}>` +
     coords.map((e)=>orderCoords(e).join(' ')).join(' ') +
@@ -125,7 +128,8 @@ export function lineString(coords, gmlId, params={}){
  * @returns {String} a string containing gml representing the input geometry
  */
 export function linearRing(coords, gmlId, params={}){
-  var {srsName:srsName, srsDimension:srsDimension} = params;
+  //var {srsName:srsName, srsDimension:srsDimension} = params;
+  var {srsName:undefined,srsDimension:srsDimension} = params;
   return `<gml:LinearRing${attrs({'gml:id':gmlId, srsName})}>` +
     `<gml:posList${attrs({srsDimension})}>` +
     coords.map((e)=>orderCoords(e).join(' ')).join(' ') +
